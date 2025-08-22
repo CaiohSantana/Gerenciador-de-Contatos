@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MVCASPNET")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b11ec37ca07231fe58a3b82adf951689bf7113bc")]
 [assembly: System.Reflection.AssemblyProductAttribute("MVCASPNET")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MVCASPNET")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

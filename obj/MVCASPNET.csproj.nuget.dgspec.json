@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\caiod\\Desktop\\cesharp\\Aulas\\MVCASPNET\\MVCASPNET.csproj": {}
+    "C:\\Users\\caiod\\Desktop\\cesharp\\Gerenciador-de-Contatos\\MVCASPNET.csproj": {}
   },
   "projects": {
-    "C:\\Users\\caiod\\Desktop\\cesharp\\Aulas\\MVCASPNET\\MVCASPNET.csproj": {
+    "C:\\Users\\caiod\\Desktop\\cesharp\\Gerenciador-de-Contatos\\MVCASPNET.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\caiod\\Desktop\\cesharp\\Aulas\\MVCASPNET\\MVCASPNET.csproj",
+        "projectUniqueName": "C:\\Users\\caiod\\Desktop\\cesharp\\Gerenciador-de-Contatos\\MVCASPNET.csproj",
         "projectName": "MVCASPNET",
-        "projectPath": "C:\\Users\\caiod\\Desktop\\cesharp\\Aulas\\MVCASPNET\\MVCASPNET.csproj",
+        "projectPath": "C:\\Users\\caiod\\Desktop\\cesharp\\Gerenciador-de-Contatos\\MVCASPNET.csproj",
         "packagesPath": "C:\\Users\\caiod\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\caiod\\Desktop\\cesharp\\Aulas\\MVCASPNET\\obj\\",
+        "outputPath": "C:\\Users\\caiod\\Desktop\\cesharp\\Gerenciador-de-Contatos\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\caiod\\AppData\\Roaming\\NuGet\\NuGet.Config"

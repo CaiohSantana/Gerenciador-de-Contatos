@@ -1,37 +1,105 @@
 @model MVCASPNET.Models.Contato
 
 @{
-    ViewData["Title"] = "DeletarContato";
+    ViewData["Title"] = "Excluir Contato";
 }
 
-<h1 style="color: red">Deseja realmente deletar? está operação é irreversível</h1>
-<br><br>
-<div>
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(x => x.Nome)
-        </dt>
-        <dt class="col-sm-10">
-            @Html.DisplayFor(x => x.Nome)
-        </dt>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(x => x.Telefone)
-        </dt>
-        <dt class="col-sm-10">
-            @Html.DisplayFor(x => x.Telefone)
-        </dt>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(x => x.Ativo)
-        </dt>
-        <dt class="col-sm-10">
-            @Html.DisplayFor(x => x.Ativo)
-        </dt>
-    </dl>
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <!-- Header -->
+            <div class="d-flex align-items-center mb-4">
+                <a asp-action="Index" class="btn btn-outline-secondary me-3">
+                    <i class="bi bi-arrow-left"></i>
+                </a>
+                <div>
+                    <h1 class="display-6 fw-bold text-danger mb-1">
+                        <i class="bi bi-exclamation-triangle-fill me-2"></i>Excluir Contato
+                    </h1>
+                    <p class="text-muted mb-0">Esta ação não pode ser desfeita</p>
+                </div>
+            </div>
+
+            <!-- Warning Card -->
+            <div class="alert alert-danger border-0 shadow-sm mb-4" role="alert">
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-exclamation-triangle-fill fs-3 me-3"></i>
+                    <div>
+                        <h4 class="alert-heading mb-1">Atenção!</h4>
+                        <p class="mb-0">Você está prestes a excluir permanentemente este contato. Esta operação é irreversível.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Info Card -->
+            <div class="card shadow-sm border-0 mb-4">
+                <div class="card-header bg-light border-0 py-3">
+                    <h5 class="mb-0 fw-semibold text-danger">
+                        <i class="bi bi-person-x text-danger me-2"></i>Dados do Contato a Ser Excluído
+                    </h5>
+                </div>
+                <div class="card-body p-4">
+                    <div class="row align-items-center">
+                        <div class="col-md-3 text-center mb-3 mb-md-0">
+                            <div class="avatar-circle bg-danger text-white d-inline-flex align-items-center justify-content-center rounded-circle" 
+                                 style="width: 60px; height: 60px; font-size: 24px; font-weight: bold;">
+                                @(Model.Nome?.Substring(0, 1).ToUpper() ?? "?")
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <h3 class="fw-bold mb-2">@Model.Nome</h3>
+                            <p class="text-muted mb-2">
+                                <i class="bi bi-telephone me-2"></i>@Model.Telefone
+                            </p>
+                            <span class="badge @(Model.Ativo ? "bg-success" : "bg-secondary") fs-6 px-3 py-2">
+                                <i class="bi bi-@(Model.Ativo ? "check-circle-fill" : "x-circle-fill") me-2"></i>
+                                @(Model.Ativo ? "Ativo" : "Inativo")
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Confirmation Form -->
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-4">
+                    <div class="text-center mb-4">
+                        <h4 class="text-danger mb-3">Tem certeza que deseja continuar?</h4>
+                        <p class="text-muted mb-0">
+                            Confirme que você realmente deseja excluir o contato <strong>@Model.Nome</strong> permanentemente.
+                        </p>
+                    </div>
+
+                    <form asp-action="Deletar" method="post">
+                        <input asp-for="Id" type="hidden" />
+                        <div class="d-flex gap-2 justify-content-center pt-3 border-top">
+                            <button type="submit" class="btn btn-danger btn-lg px-4">
+                                <i class="bi bi-trash-fill me-2"></i>Sim, Excluir Permanentemente
+                            </button>
+                            <a asp-action="Detalhes" asp-route-id="@Model.Id" class="btn btn-outline-info btn-lg px-4">
+                                <i class="bi bi-eye me-2"></i>Ver Detalhes
+                            </a>
+                            <a asp-action="Index" class="btn btn-outline-secondary btn-lg px-4">
+                                <i class="bi bi-x-lg me-2"></i>Cancelar
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Info Card -->
+            <div class="card mt-4 bg-light border-0">
+                <div class="card-body">
+                    <h6 class="fw-semibold mb-2">
+                        <i class="bi bi-info-circle text-primary me-2"></i>Informações importantes
+                    </h6>
+                    <ul class="mb-0 small text-muted">
+                        <li>Uma vez excluído, o contato não poderá ser recuperado</li>
+                        <li>Considere desativar o contato em vez de excluí-lo</li>
+                        <li>Certifique-se de fazer backup das informações importantes</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-
-<form asp-action="Deletar">
-    <input type="submit" value="Deletar" class="btn btn-danger">
-</form>
-
-<hr/>
-<a asp-action="Index">Voltar</a>

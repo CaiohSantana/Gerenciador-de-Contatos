@@ -1,55 +1,143 @@
 @model IEnumerable<MVCASPNET.Models.Contato>
 
 @{
-    ViewData["Title"] = "Listagem de contatos";
+    ViewData["Title"] = "Gerenciar Contatos";
 }
 
-<h1> Contatos </h1>
+<div class="container-fluid py-4">
+    <!-- Header Section -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="display-5 fw-bold text-primary mb-1">
+                <i class="bi bi-people-fill me-2"></i>Meus Contatos
+            </h1>
+            <p class="text-muted fs-6">Gerencie seus contatos de forma fácil e organizada</p>
+        </div>
+        <a asp-action="Criar" class="btn btn-primary btn-lg shadow-sm">
+            <i class="bi bi-person-plus-fill me-2"></i>Novo Contato
+        </a>
+    </div>
 
-<p>
-    <a asp-action="Criar" class="display-6 "> Novo Contato</a>
-</p>
+    @if (Model.Any())
+    {
+        <!-- Stats Cards -->
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm bg-primary text-white">
+                    <div class="card-body text-center py-3">
+                        <h3 class="fw-bold mb-0">@Model.Count()</h3>
+                        <small class="opacity-75">Total de Contatos</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm bg-success text-white">
+                    <div class="card-body text-center py-3">
+                        <h3 class="fw-bold mb-0">@Model.Count(c => c.Ativo)</h3>
+                        <small class="opacity-75">Contatos Ativos</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm bg-warning text-white">
+                    <div class="card-body text-center py-3">
+                        <h3 class="fw-bold mb-0">@Model.Count(c => !c.Ativo)</h3>
+                        <small class="opacity-75">Contatos Inativos</small>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Nome)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Telefone)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Ativo)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(model => item.Id)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.Nome)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.Telefone)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.Ativo)
-                </td>
-                <td>
-                    <a asp-action="Editar" asp-route-id="@item.Id">Editar</a> |
-                    <a asp-action="Detalhes" asp-route-id="@item.Id">Detalhes</a> |
-                    <a asp-action="Deletar" asp-route-id="@item.Id">Deletar</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+        <!-- Contacts Table -->
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead class="bg-light">
+                            <tr>
+                                <th class="border-0 fw-semibold text-muted ps-4">ID</th>
+                                <th class="border-0 fw-semibold text-muted">Nome</th>
+                                <th class="border-0 fw-semibold text-muted">Telefone</th>
+                                <th class="border-0 fw-semibold text-muted">Status</th>
+                                <th class="border-0 fw-semibold text-muted text-center">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td class="ps-4 py-3">
+                                        <span class="badge bg-light text-dark fw-normal">#@item.Id</span>
+                                    </td>
+                                    <td class="py-3">
+                                        <div class="d-flex align-items-center">
+                                            <div class="avatar-circle bg-primary text-white me-3 d-flex align-items-center justify-content-center rounded-circle" style="width: 40px; height: 40px; font-size: 16px; font-weight: bold;">
+                                                @(item.Nome?.Substring(0, 1).ToUpper() ?? "?")
+                                            </div>
+                                            <div>
+                                                <span class="fw-semibold">@item.Nome</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="py-3">
+                                        <span class="text-muted">
+                                            <i class="bi bi-telephone me-1"></i>@item.Telefone
+                                        </span>
+                                    </td>
+                                    <td class="py-3">
+                                        @if (item.Ativo)
+                                        {
+                                            <span class="badge bg-success-subtle text-success border border-success-subtle">
+                                                <i class="bi bi-check-circle-fill me-1"></i>Ativo
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-danger-subtle text-danger border border-danger-subtle">
+                                                <i class="bi bi-x-circle-fill me-1"></i>Inativo
+                                            </span>
+                                        }
+                                    </td>
+                                    <td class="py-3 text-center">
+                                        <div class="btn-group" role="group">
+                                            <a asp-action="Detalhes" asp-route-id="@item.Id" 
+                                               class="btn btn-outline-info btn-sm" title="Ver Detalhes">
+                                                <i class="bi bi-eye"></i>
+                                            </a>
+                                            <a asp-action="Editar" asp-route-id="@item.Id" 
+                                               class="btn btn-outline-warning btn-sm" title="Editar">
+                                                <i class="bi bi-pencil"></i>
+                                            </a>
+                                            <a asp-action="Deletar" asp-route-id="@item.Id" 
+                                               class="btn btn-outline-danger btn-sm" title="Deletar">
+                                                <i class="bi bi-trash"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <!-- Empty State -->
+        <div class="card shadow-sm border-0">
+            <div class="card-body text-center py-5">
+                <div class="mb-4">
+                    <i class="bi bi-person-x display-1 text-muted"></i>
+                </div>
+                <h3 class="text-muted mb-3">Nenhum contato encontrado</h3>
+                <p class="text-muted mb-4">Comece adicionando seu primeiro contato ao sistema.</p>
+                <a asp-action="Criar" class="btn btn-primary btn-lg">
+                    <i class="bi bi-person-plus-fill me-2"></i>Adicionar Primeiro Contato
+                </a>
+            </div>
+        </div>
+    }
+</div>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">

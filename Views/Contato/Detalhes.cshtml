@@ -4,30 +4,145 @@
     ViewData["Title"] = "Detalhes do Contato";
 }
 
-<h1>Detalhes do Contato</h1>
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <!-- Header -->
+            <div class="d-flex align-items-center mb-4">
+                <a asp-action="Index" class="btn btn-outline-secondary me-3">
+                    <i class="bi bi-arrow-left"></i>
+                </a>
+                <div class="flex-grow-1">
+                    <h1 class="display-6 fw-bold text-info mb-1">
+                        <i class="bi bi-person-lines-fill me-2"></i>Detalhes do Contato
+                    </h1>
+                    <p class="text-muted mb-0">Informações completas do contato</p>
+                </div>
+                <div class="text-end">
+                    <span class="badge bg-light text-dark fs-6 px-3 py-2">ID: #@Model.Id</span>
+                </div>
+            </div>
 
-<div>
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(x => x.Nome)
-        </dt>
-        <dt class="col-sm-10">
-            @Html.DisplayFor(x => x.Nome)
-        </dt>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(x => x.Telefone)
-        </dt>
-        <dt class="col-sm-10">
-            @Html.DisplayFor(x => x.Telefone)
-        </dt>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(x => x.Ativo)
-        </dt>
-        <dt class="col-sm-10">
-            @Html.DisplayFor(x => x.Ativo)
-        </dt>
-    </dl>
+            <!-- Profile Card -->
+            <div class="card shadow-sm border-0 mb-4">
+                <div class="card-body p-4">
+                    <div class="row align-items-center">
+                        <div class="col-md-3 text-center mb-3 mb-md-0">
+                            <div class="avatar-circle bg-info text-white d-inline-flex align-items-center justify-content-center rounded-circle" 
+                                 style="width: 80px; height: 80px; font-size: 32px; font-weight: bold;">
+                                @(Model.Nome?.Substring(0, 1).ToUpper() ?? "?")
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <h2 class="fw-bold mb-2">@Model.Nome</h2>
+                            <div class="mb-2">
+                                <i class="bi bi-telephone text-info me-2"></i>
+                                <span class="fs-5">@Model.Telefone</span>
+                                <button class="btn btn-outline-info btn-sm ms-2" onclick="copyToClipboard('@Model.Telefone')" title="Copiar telefone">
+                                    <i class="bi bi-copy"></i>
+                                </button>
+                            </div>
+                            <div>
+                                @if (Model.Ativo)
+                                {
+                                    <span class="badge bg-success fs-6 px-3 py-2">
+                                        <i class="bi bi-check-circle-fill me-2"></i>Contato Ativo
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-danger fs-6 px-3 py-2">
+                                        <i class="bi bi-x-circle-fill me-2"></i>Contato Inativo
+                                    </span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Informações Detalhadas -->
+            <div class="card shadow-sm border-0 mb-4">
+                <div class="card-header bg-light border-0 py-3">
+                    <h5 class="mb-0 fw-semibold">
+                        <i class="bi bi-info-circle text-info me-2"></i>Informações Detalhadas
+                    </h5>
+                </div>
+                <div class="card-body p-0">
+                    <div class="list-group list-group-flush">
+                        <div class="list-group-item d-flex justify-content-between align-items-center py-3">
+                            <div>
+                                <i class="bi bi-hash text-muted me-2"></i>
+                                <span class="fw-semibold">Identificador</span>
+                            </div>
+                            <span class="text-muted">#@Model.Id</span>
+                        </div>
+                        <div class="list-group-item d-flex justify-content-between align-items-center py-3">
+                            <div>
+                                <i class="bi bi-person text-muted me-2"></i>
+                                <span class="fw-semibold">Nome Completo</span>
+                            </div>
+                            <span class="text-muted">@Model.Nome</span>
+                        </div>
+                        <div class="list-group-item d-flex justify-content-between align-items-center py-3">
+                            <div>
+                                <i class="bi bi-telephone text-muted me-2"></i>
+                                <span class="fw-semibold">Telefone</span>
+                            </div>
+                            <span class="text-muted">@Model.Telefone</span>
+                        </div>
+                        <div class="list-group-item d-flex justify-content-between align-items-center py-3">
+                            <div>
+                                <i class="bi bi-check-circle text-muted me-2"></i>
+                                <span class="fw-semibold">Status</span>
+                            </div>
+                            @if (Model.Ativo)
+                            {
+                                <span class="badge bg-success-subtle text-success border border-success-subtle">
+                                    Ativo
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger-subtle text-danger border border-danger-subtle">
+                                    Inativo
+                                </span>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ações -->
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-light border-0 py-3">
+                    <h5 class="mb-0 fw-semibold">
+                        <i class="bi bi-gear text-info me-2"></i>Ações Disponíveis
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex gap-2 flex-wrap">
+                        <a asp-action="Editar" asp-route-id="@Model.Id" class="btn btn-warning text-white">
+                            <i class="bi bi-pencil me-2"></i>Editar Contato
+                        </a>
+                        <a asp-action="Deletar" asp-route-id="@Model.Id" class="btn btn-outline-danger">
+                            <i class="bi bi-trash me-2"></i>Excluir Contato
+                        </a>
+                        <a asp-action="Index" class="btn btn-outline-secondary">
+                            <i class="bi bi-list me-2"></i>Todos os Contatos
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<a asp-action="Editar" asp-route-id="@Model.Id">Editar</a>
-<hr />
-<a asp-action="Index">Voltar</a>
+
+<script>
+function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(function() {
+        // Criar toast de sucesso (opcional)
+        alert('Telefone copiado para a área de transferência!');
+    });
+}
+</script>
